@@ -1,0 +1,22 @@
+alias ssh-add='ssh-add -t 4h'
+alias l='ls'
+alias ll='ls -l'
+alias la='ls -a'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias s=ssh
+
+function x (){
+        ssh $@ -t screen -x
+}
+
+function r () {
+  # set remote session name to local username
+  # to avoid detaching another user's screen there.
+  ssh -t $@ screen -DR "$USER"
+}
+
+alias puppet-lint='puppet-lint --no-class_inherits_from_params_class-check'
+
+# String escape:
+alias stresc='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'

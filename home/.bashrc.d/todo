@@ -1,0 +1,10 @@
+
+if [ -n "$PS1" ];then
+  if [ -f ~/.todo ] ;then
+    while read LINE ;do
+      echo "TODO: $LINE"
+    done < ~/.todo
+  fi
+fi
+
+#:filetype=sh:

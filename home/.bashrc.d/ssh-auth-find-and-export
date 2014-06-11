@@ -1,4 +1,4 @@
-# Try and find ssh-auth socket in /tmp and eport it in SSH_AUTH_SOCK environment variable.
+# Try and find ssh-auth socket in /tmp and export it in SSH_AUTH_SOCK environment variable.
 # this file must be sourced.
 function ssh-auth-find-and-export () {
   TMP_SSH_AUTH_SOCK=`ls -t /tmp/ssh-*/agent.*|head -n1`
@@ -8,6 +8,7 @@ function ssh-auth-find-and-export () {
   fi
 }
 
+# Autoload in new screen terminals:
 if grep -q "screen"<<<"$TERM" ;then
   ssh-auth-find-and-export 
 fi

@@ -2,6 +2,7 @@
 
 export LESS='-q'
 export EDITOR=vim
+export LESS='--quit-if-one-screen --RAW-CONTROL-CHARS --no-init'
 
 # You may uncomment the following lines if you want `ls' to be colorized:
 export LS_OPTIONS='--color=auto'

@@ -6,6 +6,13 @@ if [ -n "$PS1" ];then
   {
       printf "%q" "$*"
   }
+
+  if [ -n "${HOSTNAME_PROMPT_OVERRIDE}" ]
+  then
+    _LP_HOSTNAME="${HOSTNAME_PROMPT_OVERRIDE}"
+  else
+    _LP_HOSTNAME="$(hostname)"
+  fi
       ti_sgr0="$( { tput sgr0 || tput me ; } 2>/dev/null )"
       #ti_bold="$( { tput bold || tput md ; } 2>/dev/null )"
       ti_bold="" #DISABLED
@@ -211,10 +218,10 @@ if [ -n "$PS1" ];then
   }
   
   
-  #export PS1='${YELLOW}($?) [ ${PURPLE}\u${GREY}@${GREEN}\h${GREY}:${CYAN}\w $(_lp_git_branch_color)${YELLOW}]\n\$${WHITE} '
+  #export PS1='${YELLOW}($?) [ ${PURPLE}\u${GREY}@${GREEN}${_LP_HOSTNAME}${GREY}:${CYAN}\w $(_lp_git_branch_color)${YELLOW}]\n\$${WHITE} '
 
   export        PS1='${YELLOW}($?)|${CYAN}\w'
-  export  PS1="$PS1"'${YELLOW}|${PURPLE}\u${GREY}@${GREEN}\h'
+  export  PS1="$PS1"'${YELLOW}|${PURPLE}\u${GREY}@${GREEN}${_LP_HOSTNAME}'
   export  PS1="$PS1"'${YELLOW}|$(_lp_git_branch_color)${WHITE}'
   export  PS1="$PS1"'\n\$ '
 fi

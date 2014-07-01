@@ -1,0 +1,12 @@
+#!/bin/bash
+delayinseconds=$1
+EXITSTATUS=1
+shift
+(for i in `seq 0 $((10/delayinseconds)) 150 `
+do
+        echo "$i" 
+        sleep .1
+done
+) | zenity --progress --auto-close --text "$@" && EXITSTATUS=0
+
+exit $EXITSTATUS

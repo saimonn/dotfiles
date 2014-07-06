@@ -1,0 +1,30 @@
+function rt_cache () {
+  # set expire time in seconds
+  local CACHE_EXPIRE="300" 
+  local CACHE_DIR="$HOME/.cache/rt/"
+  local CACHE_FILE="${CACHE_DIR}/rt_cache"
+
+  if [ "$#" -eq 0 ];then
+    local rt_args="ls"
+  else
+    local rt_args="$@"
+  fi
+  local rt_command="rt ${rt_args}"
+
+  if ! [ -d "$CACHE_DIR" ] ;then
+    mkdir -p "$CACHE_DIR" || return 1 || exit 1
+  fi
+
+  local cache_dir_time=$(stat -c '%Y' "$CACHE_DIR")
+  local time_now=$(date +'%s')
+
+  if [ $(( cache_dir_time + CACHE_EXPIRE )) -lt $time_now ] || \
+     ! [ -f "$CACHE_FILE" ]
+  then
+    echo -en "refreshing rt cache..." # do no jump to next line
+    ${rt_command} >> $CACHE_FILE
+    echo -e '\rRT cache refreshed' # and come back to pos 0 in line.
+  fi
+
+  cat "${CACHE_FILE}"
+}

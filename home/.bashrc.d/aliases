@@ -20,3 +20,6 @@ alias puppet-lint='puppet-lint --no-class_inherits_from_params_class-check'
 
 # String escape:
 alias stresc='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
+
+alias xtightvncviewer='xtightvncviewer -encodings "tight copyrect" -quality 1'
+

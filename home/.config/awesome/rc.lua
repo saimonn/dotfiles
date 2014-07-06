@@ -29,7 +29,7 @@ beautiful.init(theme_path)
 terminal = "x-terminal-emulator"
 browser = "firefox"
 musicplayer = "ario"
-mail = "thunderbird"
+mail = "run_once thunderbird"
 chat = terminal .. " -e irssi"
 -- amixer -c 'PCH' : carte 'PCH'
 volume_up_cmd   = "/usr/bin/amixer -c 'PCH' sset 'Master',0 2dB+"
@@ -40,16 +40,31 @@ xlock_cmd = "/usr/bin/i3lock"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
-awful.util.spawn_with_shell(mail)
-awful.util.spawn_with_shell(chat)
-awful.util.spawn_with_shell("~/bin/notify-listener.py")
-awful.util.spawn_with_shell("nm-applet")
-awful.util.spawn_with_shell("numlockx")
-awful.util.spawn_with_shell("fdpowermon0") -- battery 0 systray
-awful.util.spawn_with_shell("fdpowermon1") -- battery 1 systray
-awful.util.spawn_with_shell("ssh-add")
-awful.util.spawn_with_shell("/usr/bin/volumeicon")
-awful.util.spawn_with_shell("workrave")
+function run_once(prg,arg_string,pname,screen)
+    if not prg then
+        do return nil end
+    end
+    if not pname then
+       pname = prg
+    end
+    if not arg_string then 
+        awful.util.spawn_with_shell("pgrep -f -u $USER '" .. pname .. "' || (" .. prg .. ")",screen)
+    else
+        awful.util.spawn_with_shell("pgrep -f -u $USER '" .. pname .. " ".. arg_string .."' || (" .. prg .. " " .. arg_string .. ")",screen)
+    end
+end
+
+
+run_once(mail)
+run_once(chat)
+run_once("~/bin/notify-listener.py")
+run_once("nm-applet")
+run_once("numlockx")
+run_once("fdpowermon0") -- battery 0 systray
+run_once("fdpowermon1") -- battery 1 systray
+run_once("ssh-add")
+run_once("/usr/bin/volumeicon")
+run_once("workrave")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.

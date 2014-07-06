@@ -36,3 +36,5 @@ then
     source $f
   done
 fi
+
+rt_cache

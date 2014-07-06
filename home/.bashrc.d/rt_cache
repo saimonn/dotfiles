@@ -1,30 +1,52 @@
 function rt_cache () {
   # set expire time in seconds
   local CACHE_EXPIRE="300" 
-  local CACHE_DIR="$HOME/.cache/rt/"
+  local CACHE_DIR="$HOME/.cache/rt"
   local CACHE_FILE="${CACHE_DIR}/rt_cache"
+  local CACHE_FILE_TMP="${CACHE_FILE}.tmp"
+
+  local FORCE_REFRESH=0
+  case $1 in
+    -r|--refresh)
+      local FORCE_REFRESH=1
+      shift
+      ;;
+  esac
 
   if [ "$#" -eq 0 ];then
     local rt_args="ls"
   else
     local rt_args="$@"
   fi
+
   local rt_command="rt ${rt_args}"
 
   if ! [ -d "$CACHE_DIR" ] ;then
     mkdir -p "$CACHE_DIR" || return 1 || exit 1
   fi
 
-  local cache_dir_time=$(stat -c '%Y' "$CACHE_DIR")
+  local cache_file_time=$(stat -c '%Y' "$CACHE_FILE")
   local time_now=$(date +'%s')
 
-  if [ $(( cache_dir_time + CACHE_EXPIRE )) -lt $time_now ] || \
-     ! [ -f "$CACHE_FILE" ]
+  if [ $(( cache_file_time + CACHE_EXPIRE )) -lt $time_now ] || \
+     ! [ -f "$CACHE_FILE" ] || [ $FORCE_REFRESH -eq 1 ]
   then
     echo -en "refreshing rt cache..." # do no jump to next line
-    ${rt_command} >> $CACHE_FILE
-    echo -e '\rRT cache refreshed' # and come back to pos 0 in line.
+    ${rt_command} > "${CACHE_FILE_TMP}"
+    RET=$?
+    if [ $RET -eq 0 ];then
+      echo -e '\rRT cache refreshed' 
+      mv -f "${CACHE_FILE_TMP}" "${CACHE_FILE}"
+    else
+      echo -e 'RT command Failed'
+    fi
   fi
-
-  cat "${CACHE_FILE}"
+  if [ -f "${CACHE_FILE}" ];then
+    #echo -e "Showing cache from $(stat -c '%y' "$CACHE_FILE" )"
+    cat "${CACHE_FILE}"
+  else
+    echo -e 'No cache file present.'
+  fi
 }
+
+# vim:ft=sh ts=2 et si

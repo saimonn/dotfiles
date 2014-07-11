@@ -1,9 +1,12 @@
 function rt_cache () {
   # set expire time in seconds
-  local CACHE_EXPIRE="300" 
+  local CACHE_EXPIRE="3600" 
   local CACHE_DIR="$HOME/.cache/rt"
   local CACHE_FILE="${CACHE_DIR}/rt_cache"
   local CACHE_FILE_TMP="${CACHE_FILE}.tmp"
+  local RT_BIN="$(which rt)"
+
+  [ -x "${RT_BIN}" ] || return 0 || exit 0
 
   local FORCE_REFRESH=0
   case $1 in
@@ -19,7 +22,7 @@ function rt_cache () {
     local rt_args="$@"
   fi
 
-  local rt_command="rt ${rt_args}"
+  local rt_command="${RT_BIN} ${rt_args}"
 
   if ! [ -d "$CACHE_DIR" ] ;then
     mkdir -p "$CACHE_DIR" || return 1 || exit 1
@@ -50,3 +53,5 @@ function rt_cache () {
 }
 
 # vim:ft=sh ts=2 et si
+
+alias rt-cache=rt_cache

@@ -4,7 +4,7 @@ function rt_cache () {
   local CACHE_DIR="$HOME/.cache/rt"
   local CACHE_FILE="${CACHE_DIR}/rt_cache"
   local CACHE_FILE_TMP="${CACHE_FILE}.tmp"
-  local RT_BIN="$(which rt)"
+  local RT_BIN="$(which rt 2>/dev/null)"
 
   [ -x "${RT_BIN}" ] || return 0 || exit 0
 

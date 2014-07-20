@@ -38,10 +38,10 @@ function rt_cache () {
     ${rt_command} > "${CACHE_FILE_TMP}"
     RET=$?
     if [ $RET -eq 0 ];then
-      echo -e '\rRT cache refreshed' 
+      echo -e '\rRT cache refreshed.    ' 
       mv -f "${CACHE_FILE_TMP}" "${CACHE_FILE}"
     else
-      echo -e 'RT command Failed'
+      echo -e 'RT command Failed      '
     fi
   fi
   if [ -f "${CACHE_FILE}" ];then

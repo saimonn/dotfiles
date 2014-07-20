@@ -2,7 +2,7 @@ set et si
 set ts=2
 set hlsearch
 syntax on
-set relativenumber
+set number
 
 filetype plugin indent on
 au BufNewFile,BufRead *.pp  setlocal kp=pi

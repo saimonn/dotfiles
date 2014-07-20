@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# using MAC_PREFIXES from debian nmap package. You can try with others.
+MAC_PREFIXES="/usr/share/nmap/nmap-mac-prefixes"
+BASENAME="$(basename $0)"
+
+usage () {
+  echo "Usage: $BASENAME <MACADRESS>"
+  echo "  <MACADRESS> can be  just the six first hexa characters (vendor part), or"
+  echo "  a full mac adress. Only first 6th characters will be used then. "
+  echo "  Useless separator character will be removed."
+  echo "Example usage:"
+  echo "  $BASENAME b8:27:eb"
+  echo "  $BASENAME 00-23-45-1F-3A-BC"
+  echo "  $BASENAME 001234567"
+  echo "  $BASENAME .               # will list all know vendors"
+}
+
+if [ $# -eq 0 ] || [ "$1" == "--help" ];then
+  usage
+  exit 1
+fi
+
+if ! [ -f "$MAC_PREFIXES" ] ;then
+  echo "I'm looking for \`$MAC_PREFIXES' but can't find it." >&2
+  echo "Please  either install nmap package or edit me to change the path for MAC_PREFIXES file" >&2
+  exit 1
+fi
+
+MAC="$(sed 's/[^a-fA-F0-9]//g; s/^\(.\{6\}\).*/\U\1/; '<<<"$*" )"
+
+grep "^${MAC}" "${MAC_PREFIXES}"
+if [ $? -ne 0 ];then
+  echo "vendor ${MAC} not found" >&2
+fi

@@ -1,0 +1,16 @@
+function ssh-via-usage () {
+  echo 'Usage: ssh-via <proxy-host> [<destination-options>] <destination-host>'
+  echo '  shortcut for the command: ssh -o proxycommand="ssh <proxy-host> nc %h %p" $@'
+}
+
+function ssh-via () {
+  if [ "$#" -lt 2 ];then
+    ssh-via-usage
+    return 1 || exit 1
+  fi
+  local DESTHOST=$1
+  shift
+  ssh -o proxycommand="ssh $DESTHOST nc %h %p" $@
+}
+
+

@@ -1,0 +1,9 @@
+[user]
+	name = Simon Séhier
+	email = simon.sehier@camptocamp.com
+[push]
+	default = simple
+[merge]
+	tool = vimdiff
+[alias]
+  lg=log --graph --oneline --all

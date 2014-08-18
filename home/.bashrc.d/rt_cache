@@ -1,9 +1,10 @@
 function rt_cache () {
   # set expire time in seconds
-  local CACHE_EXPIRE="3600" 
-  local CACHE_DIR="$HOME/.cache/rt"
-  local CACHE_FILE="${CACHE_DIR}/rt_cache"
-  local CACHE_FILE_TMP="${CACHE_FILE}.tmp"
+  local RTCACHE_EXPIRE="3600" 
+  local RTCACHE_DIR="$HOME/.cache/rt"
+  local RTCACHE_LOCKDIR="${RTCACHE_DIR}/lock"
+  local RTCACHE_FILE="${RTCACHE_DIR}/rt_cache"
+  local RTCACHE_FILE_TMP="${RTCACHE_FILE}.tmp"
   local RT_BIN="$(which rt 2>/dev/null)"
 
   [ -x "${RT_BIN}" ] || return 0 || exit 0
@@ -24,29 +25,35 @@ function rt_cache () {
 
   local rt_command="${RT_BIN} ${rt_args}"
 
-  if ! [ -d "$CACHE_DIR" ] ;then
-    mkdir -p "$CACHE_DIR" || return 1 || exit 1
+  if ! [ -d "$RTCACHE_DIR" ] ;then
+    mkdir -p "$RTCACHE_DIR" || return 1 || exit 1
   fi
 
-  local cache_file_time=$(stat -c '%Y' "$CACHE_FILE")
+  local cache_file_time=$(stat -c '%Y' "$RTCACHE_FILE")
   local time_now=$(date +'%s')
 
-  if [ $(( cache_file_time + CACHE_EXPIRE )) -lt $time_now ] || \
-     ! [ -f "$CACHE_FILE" ] || [ $FORCE_REFRESH -eq 1 ]
+  if [ $(( cache_file_time + RTCACHE_EXPIRE )) -lt $time_now ] || \
+     ! [ -f "$RTCACHE_FILE" ] || [ $FORCE_REFRESH -eq 1 ]
   then
-    echo -en "refreshing rt cache..." # do no jump to next line
-    ${rt_command} > "${CACHE_FILE_TMP}"
-    RET=$?
-    if [ $RET -eq 0 ];then
-      echo -e '\rRT cache refreshed.    ' 
-      mv -f "${CACHE_FILE_TMP}" "${CACHE_FILE}"
+    if [ mkdir "$RTCACHE_LOCKDIR" 2>/dev/null ] ;then
+      trap 'rmdir "$RTCACHE_LOCKDIR"; exit $?' INT TERM EXIT
+      echo -en "refreshing rt cache..." # do no jump to next line
+      ${rt_command} > "${RTCACHE_FILE_TMP}"
+      RET=$?
+      if [ $RET -eq 0 ];then
+        echo -e '\rRT cache refreshed.    ' 
+        mv -f "${RTCACHE_FILE_TMP}" "${RTCACHE_FILE}"
+      else
+        echo -e 'RT command Failed      '
+      fi
+      rmdir "$RTCACHE_LOCKDIR"
     else
-      echo -e 'RT command Failed      '
+      echo "rtcache: lockfile present. not refreshing."
     fi
   fi
-  if [ -f "${CACHE_FILE}" ];then
-    #echo -e "Showing cache from $(stat -c '%y' "$CACHE_FILE" )"
-    cat "${CACHE_FILE}"
+  if [ -f "${RTCACHE_FILE}" ];then
+    #echo -e "Showing cache from $(stat -c '%y' "$RTCACHE_FILE" )"
+    cat "${RTCACHE_FILE}"
   else
     echo -e 'No cache file present.'
   fi

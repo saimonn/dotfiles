@@ -35,7 +35,7 @@ function rt_cache () {
   if [ $(( cache_file_time + RTCACHE_EXPIRE )) -lt $time_now ] || \
      ! [ -f "$RTCACHE_FILE" ] || [ $FORCE_REFRESH -eq 1 ]
   then
-    if [ mkdir "$RTCACHE_LOCKDIR" 2>/dev/null ] ;then
+    if mkdir "$RTCACHE_LOCKDIR" 2>/dev/null ;then
       trap 'rmdir "$RTCACHE_LOCKDIR"; exit $?' INT TERM EXIT
       echo -en "refreshing rt cache..." # do no jump to next line
       ${rt_command} > "${RTCACHE_FILE_TMP}"

@@ -48,7 +48,7 @@ function rt_cache () {
       fi
       rmdir "$RTCACHE_LOCKDIR"
     else
-      echo "rtcache: lockfile present. not refreshing."
+      echo "rtcache: lockdir ($RTCACHE_LOCKDIR) present. not refreshing."
     fi
   fi
   if [ -f "${RTCACHE_FILE}" ];then

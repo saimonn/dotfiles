@@ -59,6 +59,21 @@ function rt_cache () {
   fi
 }
 
-# vim:ft=sh ts=2 et si
+# update rt-cache in background on
+# a selection of rt command
+RTBIN=`which rt`
+function rt () {
+  $RTBIN $@ 
+  if [ $? -eq 0 ];then
+    case $1 in
+      res*,del*,take,steal,give)
+        echo "updating rt-cache in background..."
+        rt-cache -r >/dev/null &
+        ;;
+    esac
+  fi
+}
 
 alias rt-cache=rt_cache
+
+# vim:ft=sh ts=2 et si

@@ -54,7 +54,7 @@ function run_once(prg,arg_string,pname,screen)
     end
 end
 
-
+run_once("awsetbg BOFH.jpg")
 run_once(mail)
 run_once(chat)
 run_once("~/bin/notify-listener.py")

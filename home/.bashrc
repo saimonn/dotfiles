@@ -38,3 +38,18 @@ then
 fi
 
 rt_cache
+
+# update rt-cache in background on
+# selection of rt command
+RTBIN=`which rt`
+function rt () {
+  $RTBIN $@ 
+  if [ $? -eq 0 ];then
+    case $1 in
+      res*,del*,take,steal)
+        echo "updating rt-cache in background..."
+        rt-cache -r >/dev/null &
+        ;;
+    esac
+  fi
+}

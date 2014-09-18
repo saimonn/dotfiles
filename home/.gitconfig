@@ -5,5 +5,26 @@
 	default = simple
 [merge]
 	tool = vimdiff
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+  interactive = auto
+
 [alias]
+  st = status
+  s = status -sb
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  d = diff --word-diff=color
+  dc = diff --cached
+  fo = fetch origin
+  fu = fetch upstream
   lg=log --graph --oneline --all
+  lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %s%C(reset) %C(magenta)- %an%C(reset)%C(cyan)%d%C(reset)' --all
+  oops=commit --amend --no-edit
+  remotes = remote -v
+  branches = branch -a -vv

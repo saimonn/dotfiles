@@ -35,7 +35,7 @@ chat = terminal .. " -e irssi"
 volume_up_cmd   = "/usr/bin/amixer -c 'PCH' sset 'Master',0 2dB+"
 volume_down_cmd = "/usr/bin/amixer -c 'PCH' sset 'Master',0 2dB-"
 
-xlock_cmd = "/usr/bin/i3lock"
+xlock_cmd = "/home/ssehier/bin/xlock"
 
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor

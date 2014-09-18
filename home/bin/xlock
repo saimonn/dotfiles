@@ -1,0 +1,8 @@
+#!/bin/bash
+
+logger "$$: SIGLUNCH, or at least xlock called. Oh and rsyslog for grep"
+
+/usr/bin/i3lock --nofork --image /home/${USER}/BOFH.png --color 404040  --tiling --dpms
+
+logger "$$: END OF SIGLUNCH, or at least xlock exited. Oh and rsyslog for grep"
+

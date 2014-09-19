@@ -12,11 +12,14 @@
   interactive = auto
 
 [alias]
+  a = add -p
   st = status
   s = status -sb
   ci = commit
   br = branch
   co = checkout
+  cp = cherry-pick
+  cp-last = cherry-pick @{-1}
   df = diff
   d = diff --word-diff=color
   dc = diff --cached

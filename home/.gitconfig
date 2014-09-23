@@ -22,6 +22,7 @@
   cp-last = cherry-pick @{-1}
   df = diff
   d = diff --word-diff=color
+  sh = show --word-diff=color
   dc = diff --cached
   fo = fetch origin
   fu = fetch upstream

@@ -37,4 +37,4 @@ then
   done
 fi
 
-rt_cache
+[ -n "$PS1" ] && rt_cache

@@ -6,6 +6,7 @@ alias la='ls -a'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias s=ssh
+alias fail='tail -F'
 
 function x (){
         ssh $@ -t screen -x

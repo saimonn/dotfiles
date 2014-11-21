@@ -1,8 +1,14 @@
 #!/bin/bash
 
+START_TIME=$(date '+%T')
 logger "$$: SIGLUNCH, or at least xlock called. Oh and rsyslog for grep"
 
 /usr/bin/i3lock --nofork --image /home/${USER}/BOFH.png --color 404040  --tiling --dpms
 
+END_TIME=$(date '+%T')
 logger "$$: END OF SIGLUNCH, or at least xlock exited. Oh and rsyslog for grep"
 
+if which zenity >/dev/null
+then
+  zenity  --info --text "Lock time: ${START_TIME}\nunlocked at: ${END_TIME}\n" --title "locked ${START_TIME} 'til ${END_TIME}"
+fi

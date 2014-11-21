@@ -37,4 +37,5 @@ then
   done
 fi
 
-[ -n "$PS1" ] && rt_cache
+# added by travis gem
+[ -f /home/ssehier/.travis/travis.sh ] && source /home/ssehier/.travis/travis.sh

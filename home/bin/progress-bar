@@ -1,12 +1,18 @@
 #!/bin/bash
+usage ()
+{
+        echo "Usage: $0 <delay-in-seconds>"
+        echo "  displays a progressbar with zenity"
+}
+
+[ $# -eq 0 ] && usage && exit 0
+
 delayinseconds=$1
 EXITSTATUS=1
 shift
-(for i in `seq 0 $((10/delayinseconds)) 150 `
+zenity --progress --auto-close --text "$@"  <(for i in `seq 0 $((10/delayinseconds)) 150 `
 do
         echo "$i" 
         sleep .1
 done
-) | zenity --progress --auto-close --text "$@" && EXITSTATUS=0
-
-exit $EXITSTATUS
+)

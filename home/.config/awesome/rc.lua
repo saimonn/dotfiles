@@ -27,7 +27,7 @@ beautiful.init(theme_path)
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"
-browser = "firefox"
+browser = "x-www-browser"
 musicplayer = "ario"
 mail = "run_once thunderbird"
 chat = terminal .. " -e irssi"
@@ -190,6 +190,8 @@ shifty.config.apps = {
             "Navigator",
             "Vimperator",
             "Gran Paradiso",
+            "xxxterm",
+            "xombrero",
         },
         tag = "5:web",
     },

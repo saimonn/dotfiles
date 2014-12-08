@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#WARNING: dirty script, not reliable.
+
+usage () {
+  echo "Usage:"
+  echo "  $0 hieradata/nodes/<fqdn>.yaml:"
+  echo "or"
+  echo "  git grep <pattern> hieradata/node | $0"
+  echo ""
+  echo "  will sed to just keep the hostname from yaml filename"
+  echo "  hostname MUST be precedeed by a slash / "
+}
+
+
+sed-pattern () {
+  sed -n  's:^.*/\([^/]\+\)\.yaml.*:\1:p'
+}
+
+if [ $# -ne 0 ] ;then
+  echo "$@" | sed-pattern
+else
+  sed-pattern
+fi
+  

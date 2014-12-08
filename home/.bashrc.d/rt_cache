@@ -37,16 +37,17 @@ function rt_cache () {
   then
     if mkdir "$RTCACHE_LOCKDIR" 2>/dev/null ;then
       trap 'rmdir "$RTCACHE_LOCKDIR"; exit $?' INT TERM EXIT
-      echo -en "refreshing rt cache..." # do no jump to next line
+      echo -e "WARNING: cache expired. Refreshing rt cache in background. Displaying 'old' tasks"
+      (
       ${rt_command} > "${RTCACHE_FILE_TMP}"
       RET=$?
       if [ $RET -eq 0 ];then
-        echo -e '\rRT cache refreshed.    ' 
         mv -f "${RTCACHE_FILE_TMP}" "${RTCACHE_FILE}"
       else
         echo -e 'RT command Failed      '
       fi
       rmdir "$RTCACHE_LOCKDIR"
+      )&
     else
       echo "rtcache: lockdir ($RTCACHE_LOCKDIR) present. not refreshing."
     fi

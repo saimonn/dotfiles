@@ -12,10 +12,6 @@ URxvt*urlLauncher:      /usr/bin/firefox
 URxvt*matcher.button:	  3
 !URxvt*cursorBlink:      true
 !!URxvt*termName:         rxvt
-URxvt*buffered:         false
-!!make display bugs!! URxvt*transparent:	true 
-URxvt*shading:			2
-
 URxvt*skipScroll:       false
 
 ! Disable printing

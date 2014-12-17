@@ -8,11 +8,12 @@ usage ()
 [ $# -eq 0 ] && usage && exit 0
 
 delayinseconds=$1
+sleep_delay=$( bc -l <<<"$delayinseconds/100")
 EXITSTATUS=1
 shift
-zenity --progress --auto-close --text "$@"  <(for i in `seq 0 $((10/delayinseconds)) 150 `
+(for i in `seq 0 100 `
 do
         echo "$i" 
-        sleep .1
+        sleep $sleep_delay
 done
-)
+)| zenity --progress --auto-close --text "$@"

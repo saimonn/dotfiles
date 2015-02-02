@@ -28,6 +28,7 @@
   fu = fetch upstream
   lg=log --graph --oneline --all
   lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(blue)%h%C(reset) - %C(green)(%ar)%C(reset) %s%C(reset) %C(magenta)- %an%C(reset)%C(cyan)%d%C(reset)' --all
+  wc = whatchanged
   remotes = remote -v
   branches = branch -a -vv
   oops=commit --amend --no-edit

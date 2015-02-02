@@ -36,6 +36,3 @@ then
     source $f
   done
 fi
-
-# added by travis gem
-[ -f /home/ssehier/.travis/travis.sh ] && source /home/ssehier/.travis/travis.sh

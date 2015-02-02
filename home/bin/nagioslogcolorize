@@ -1,0 +1,140 @@
+#!/usr/bin/perl
+#
+# perl script to colorize customized nagios logs.
+#
+# recommended usage:
+#   ./nagioslogcolorize < path/to/nagios.log | less -r
+#
+# - notify_var_log script simply appends all arguments to a file in /var/log/nagios3/...
+#
+# copyright (c) 2009 Simon Sehier - ssehier <at> sdis59.fr
+# 
+#  Based on original loco from :
+# #  Jules Stuifbergen <jules@zjuul.net>
+# #  (I was bored, rewrote 'logcolorise.pl' from Michael Babcock from scratch)
+# #  
+# #  Thanks Jeffrey Paul <sneak@datavibe.net> for several improvements
+# #         Cristian Ionescu-Idbohrn <cii@axis.se> for better patterns
+################################################################################
+
+use Term::ANSIColor;
+use strict;
+
+$|++;
+
+$Term::ANSIColor::AUTORESET++;	       # reset color after each print
+$SIG{INT} = sub { print "\n"; exit; }; # reset color after Ctrl-C
+
+my ($date,$current_line,$current_color,$current_state_color,$notificationtype,$hostname,$servicedesc,$servicestate,$serviceoutput);
+
+my $sep = "|"; 
+# color line
+my $state_crit			= "CRITICAL|DOWN";
+my $state_warn  		= "WARNING";
+my $state_unknown  		= "UNKNOWN";
+my $state_good  		= "OK|UP|RECOVERY";
+my $state_flapping 		= "STARTED";
+
+my $hard_state			= "HARD";
+
+my $notification_line		= "NOTIFICATION";
+
+# 'palette'
+my $neutral_color		= "white";
+
+my $crit_global_color   	= "red";
+my $warn_global_color    	= "yellow";
+my $unknown_global_color    	= "magenta";
+my $good_global_color    	= "green";
+my $flapping_global_color    	= "bold white";
+
+my $state_crit_color   		= "bold red";
+my $state_warn_color    	= "bold yellow";
+my $state_unknown_color    	= "bold magenta";
+my $state_good_color    	= "bold green";
+my $state_flapping_color    	= "bold white";
+
+my $date_color			= "magenta";
+my $notificationtype_color	= "cyan";
+my $hostname_color		= "yellow";
+my $servicedesc_color		= "magenta";
+my $servicestate_color		= "bold red";
+my $serviceoutput_color		= "bold white";
+
+my $notification_color		= "blue";
+
+#### Main loop
+#
+
+NEWLINE: while (<>) {
+	$current_line = $_ ;
+	$servicestate = <null>;
+
+	($date,$serviceoutput) = /^([^\s]*)\s+(.*)$/ unless
+		# Ligne de notif de service:
+		($date, $notificationtype, $hostname, $servicedesc, $servicestate, $serviceoutput) = /^([^\s]*)\s+(.+)##(.+)##(.+)##(.+)##(.+)/
+	or
+		# Ligne de notif de host:
+		($date, $notificationtype, $hostname, $servicestate, $serviceoutput) = /^([^\s]*)\s+(.+) '(.+)'([^-]+)-(.+)/
+	or
+		($date,$serviceoutput) = /^\[([^\s]*)\]\s+(.*)$/ ;
+
+	if ( $current_line =~ /$notification_line/ )
+	{
+		$current_color = $notification_color;
+		$current_state_color = $neutral_color;
+	} elsif ( $current_line =~ /$state_crit/ )
+	{
+		$current_color = $crit_global_color;
+		$current_state_color = $state_crit_color;
+	} elsif ( $current_line =~ /$state_flapping/ )
+	{
+		$current_color = $flapping_global_color;
+		$current_state_color = $state_flapping_color;
+	} elsif ( $current_line =~ /$state_warn/ )
+	{
+		$current_color = $warn_global_color;
+		$current_state_color = $state_warn_color;
+	} elsif ( $current_line =~ /$state_unknown/ )
+	{
+		$current_color = $unknown_global_color;
+		$current_state_color = $state_unknown_color;
+	} elsif ( $current_line =~ /$state_good/ )
+	{
+		$current_color = $good_global_color;
+		$current_state_color = $state_good_color;
+	} else
+	{
+		$current_color = $neutral_color;
+		$current_state_color = $neutral_color;
+	}
+
+	if ( $current_line =~ /$hard_state/ )
+	{
+		$current_color = "bold " . $current_color;
+	}
+	
+	$notificationtype_color = $current_state_color;
+
+	print "[";
+	$date = localtime($date) if $date =~ /^[0-9]+$/;
+	print colored("$date",    $date_color);
+	print "] ";
+
+	if (length($servicestate) > 0)
+	{
+		print colored(" $notificationtype ",    	$notificationtype_color);
+		print $sep;
+		print colored(" $hostname ",    		$hostname_color);
+		print $sep;
+		print colored(" $servicedesc ", 		$servicedesc_color);
+		print $sep;
+		print colored("$servicestate", 		$current_state_color);
+#		print colored("$servicestate", 		$servicestate_color);
+		print $sep;
+	}
+	# $serviceoutput contient la ligne entiere si elle n'a pas concorde avec une regexp.
+	print colored("$serviceoutput", 	$current_color);
+#	print colored("$serviceoutput", 	$serviceoutput_color);
+	print "\n";
+}

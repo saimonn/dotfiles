@@ -2,7 +2,7 @@ function rt_cache () {
   # set expire time in seconds
   local RTCACHE_EXPIRE="3600" 
   local RTCACHE_DIR="$HOME/.cache/rt"
-  local RTCACHE_LOCKDIR="${RTCACHE_DIR}/lock"
+  local RTCACHE_LOCKDIR="/dev/shm/rt.$USER.lock"
   local RTCACHE_FILE="${RTCACHE_DIR}/rt_cache"
   local RTCACHE_FILE_TMP="${RTCACHE_FILE}.tmp"
   local RT_BIN="$(which rt 2>/dev/null)"

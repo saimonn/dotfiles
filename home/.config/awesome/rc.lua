@@ -55,7 +55,7 @@ function run_once(prg,arg_string,pname,screen)
 end
 
 awful.util.spawn_with_shell("xrdb $USER/.Xresources")
-run_once("awsetbg Pictures/BOFH.jpg")
+run_once("awsetbg Pictures/wallpaper.jpg")
 run_once(mail)
 run_once(chat)
 run_once("~/bin/notify-listener.py")

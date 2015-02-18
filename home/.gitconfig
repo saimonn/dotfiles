@@ -32,5 +32,6 @@
   remotes = remote -v
   branches = branch -a -vv
   oops=commit --amend --no-edit
+  paf = push -f
 [push]
 	default = matching

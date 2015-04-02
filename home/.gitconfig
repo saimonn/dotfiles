@@ -15,6 +15,7 @@
   a = add -p
   st = status
   s = status -sb
+  l=ls-files
   ci = commit
   br = branch
   co = checkout

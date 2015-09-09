@@ -29,8 +29,11 @@ beautiful.init(theme_path)
 terminal = "x-terminal-emulator"
 browser = "x-www-browser"
 musicplayer = "ario"
-mail = "run_once thunderbird"
+-- mail = "run_once thunderbird"
+-- mail = "run_once sylpheed"
+mail = "run_once claws-mail"
 chat = terminal .. " -e irssi"
+awesomerc = terminal .. " -e /home/ssehier/.config/awesome/awesomerc.sh"
 -- amixer -c 'PCH' : carte 'PCH'
 volume_up_cmd   = "/usr/bin/amixer -c 'PCH' sset 'Master',0 2dB+"
 volume_down_cmd = "/usr/bin/amixer -c 'PCH' sset 'Master',0 2dB-"
@@ -199,6 +202,7 @@ shifty.config.apps = {
         match = {
             "Shredder.*",
             "Thunderbird",
+            "Sylpheed",
             "mutt",
         },
         tag = "2:mail",
@@ -295,8 +299,11 @@ mymainmenu = awful.menu(
     {
         items = {
             {"awesome", myawesomemenu, beautiful.awesome_icon},
-              {"open terminal", terminal}}
-          })
+            {"open terminal", terminal},
+            {"awsmrc.sh (xrandr)", awesomerc}
+        }
+    }
+)
 
 mylauncher = awful.widget.launcher({image = image(beautiful.awesome_icon),
                                      menu = mymainmenu})

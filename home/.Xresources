@@ -6,7 +6,7 @@ URxvt*background:	#000000
 URxvt*foreground:	#EEEEEE
 
 !!URxvt*scrollWithBuffer: true
-URxvt*saveLines:		    4096
+URxvt*saveLines:		    8192
 URxvt*perl-ext-common:	default,matcher
 URxvt*urlLauncher:      /usr/bin/firefox
 URxvt*matcher.button:	  3

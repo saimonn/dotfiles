@@ -1,4 +1,3 @@
-alias g=git
 # and make bash completion work for "g"
 . /usr/share/bash-completion/completions/git
 __git_complete g __git_main
@@ -26,4 +25,14 @@ alias stresc='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
 alias xtightvncviewer='xtightvncviewer -encodings "tight copyrect" -quality 1'
 
-alias fuck='sudo $(fc -ln -1)'
+#alias fuck='sudo $(fc -ln -1)' # pip install fuck # much better
+alias fuck='$(thefuck $(fc -ln -1))'
+# You can use whatever you want as an alias, like for mondays:
+alias FUCK='fuck'
+
+alias ec2_public_hostname-find-with-mco='mco facts ec2_public_hostname -I'
+
+## feignant mode on ## 
+alias g=git
+alias v=nvim
+alias l=ls

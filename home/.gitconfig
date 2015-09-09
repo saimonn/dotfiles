@@ -28,6 +28,7 @@
   fo = fetch origin
   fu = fetch upstream
   lg=log --graph --oneline --all
+  ll=log -5
   wc = whatchanged
   remotes = remote -v
   branches = branch -a -vv
@@ -37,7 +38,7 @@
 	default = simple
 
 [pretty]
-  mine="%C(auto,yellow)%h %C(auto,cyan)%ai %C(auto,green)%aN%C(auto,reset),%n  %s"
+  mine="%C(auto,yellow)%ai %C(auto,cyan)%h %C(auto,green)%aN%C(auto,reset),%n  %s%n"
 
 [format]
 	pretty = mine

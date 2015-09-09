@@ -1,4 +1,4 @@
-if [ -n "$PS1" ];then
+if [ -n "$PS1" ] && [ "$TERM" != "dumb" ] ;then
   # GIT #
   LP_ENABLE_GIT=1
   [[ "$LP_ENABLE_GIT"  = 1 ]] && { command -v git  >/dev/null || LP_ENABLE_GIT=0  ; }

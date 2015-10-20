@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# get numbers of CPU (threads * cores * socket)
+NCPUS=$( grep -c '^processor\b' /proc/cpuinfo )
+
+echo "Launching $NCPUS loops with low cpu prio"
+
+PIDS=""
+for CPU in $(seq 1 $NCPUS)
+do
+  nice -n19 bash -c 'while true;do :;done' &
+  PIDS="$PIDS $!"
+done
+
+echo "loops launched with these pids:"
+echo $PIDS
+
+echo " Now press enter and I'll kill 'em all."
+read
+echo " They will die. All of them. Poor little processes."
+echo "Press enter to confirm you are a murderer."
+read
+
+kill $PIDS

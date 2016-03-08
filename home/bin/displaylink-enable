@@ -1,0 +1,11 @@
+#!/bin/sh
+
+xrandr --setprovideroutputsource 1 0
+if which xrandr-use-all-screens >/dev/null
+then
+  xrandr-use-all-screens
+else
+  echo "xrandr-use-all-screens script not found, enable 2nd screen by yourself"
+fi
+
+

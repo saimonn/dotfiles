@@ -1,9 +1,0 @@
-#doge git
-alias wow='git status'
-alias much=git
-alias such=git
-alias very=git
-
-# not doge, but G.W. push is weel know. Wait... what?
-alias G.W.=git
-alias gw=git

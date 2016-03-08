@@ -1,0 +1,1 @@
+for i in `seq 10` ;do xkcdpass  -n 4 -w /usr/share/dict/french -v [a-z] ;done

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CONNECTED_SCREENS="$(xrandr -q | awk '/\<connected\>/ {print $1}' )"
+
+for S in $CONNECTED_SCREENS
+do
+   XRANDR_OPT="$XRANDR_OPT --output $S --auto"
+   if [ -n "$LAST_SCREEN" ];then
+     XRANDR_OPT="$XRANDR_OPT --right-of $LAST_SCREEN "
+   fi
+   LAST_SCREEN="$S"
+done
+
+echo "Calling 'xrandr $XRANDR_OPT'"
+xrandr $XRANDR_OPT
+

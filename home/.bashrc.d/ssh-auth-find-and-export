@@ -3,7 +3,7 @@
 function ssh-auth-find-and-export () {
   TMP_SSH_AUTH_SOCK=`ls -t /tmp/ssh-*/agent.*|head -n1`
   if [ -n "$TMP_SSH_AUTH_SOCK" ];then
-    echo "Using ssh-agent socket: \`${TMP_SSH_AUTH_SOCK}'."
+    #echo "Using ssh-agent socket: \`${TMP_SSH_AUTH_SOCK}'."
     export SSH_AUTH_SOCK="$TMP_SSH_AUTH_SOCK"
   fi
 }

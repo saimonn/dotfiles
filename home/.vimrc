@@ -1,4 +1,5 @@
 set et si
+set modeline
 set ts=2
 set hlsearch
 syntax on

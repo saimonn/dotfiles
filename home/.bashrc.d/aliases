@@ -49,3 +49,5 @@ if !(which thunderbird >/dev/null ) &&
 then 
   alias thunderbird=icedove
 fi
+
+alias pgwen='pwgen -s'

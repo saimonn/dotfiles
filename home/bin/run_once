@@ -1,4 +1,4 @@
 #!/bin/bash
 #Alternative
-pgrep $@ > /dev/null || ($@ &)
+pgrep $@ || pgrep $1 > /dev/null || ($@ &)
 

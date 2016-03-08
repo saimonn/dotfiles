@@ -25,7 +25,7 @@ URxvt*scrollBar:		false
 URxvt.iconFile: /usr/share/icons/Humanity/apps/128/utilities-terminal.svg
 
 ! Set fonts
-URxvt*font:			xft:Monospace:regular:antialias=true:size=9
+URxvt*font:			xft:Monospace:regular:antialias=true:size=10
 ! CTRL-1 to 9 and 0 to change font size
 URxvt.keysym.C-1: command: \033]710;xft:Monospace:regular:antialias=true:size=6  \007
 URxvt.keysym.C-2: command: \033]710;xft:Monospace:regular:antialias=true:size=8  \007

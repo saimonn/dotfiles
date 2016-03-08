@@ -34,5 +34,18 @@ alias ec2_public_hostname-find-with-mco='mco facts ec2_public_hostname -I'
 
 ## feignant mode on ## 
 alias g=git
-alias v=nvim
 alias l=ls
+alias j=jobs
+alias v=vim
+
+alias search='recoll -t'
+
+# quickly get default gw:
+alias gw="ip route list | awk '/^default.via/ {print \$3}'"
+
+
+if !(which thunderbird >/dev/null ) &&
+     (which icedove >/dev/null)
+then 
+  alias thunderbird=icedove
+fi

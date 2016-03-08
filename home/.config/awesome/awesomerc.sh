@@ -13,10 +13,10 @@ done
 
 xrandr $XRANDR_OPT
 
-wicd-gtk -t &
+# wicd-gtk -t &
 
-NUM_PULSE_PKG=$(dpkg -l |grep -c ^ii.*pulse) 
-if [ $NUM_PULSE_PKG -gt 3 ];then
-        zenity --error --text "Achtung, wir haben <b>$NUM_PULSE_PKG packages</b> with <i>pulse</i> in the name...\nIf you like music, maybe you'd apt-get purge 'em"
-
-fi
+#?# NUM_PULSE_PKG=$(dpkg -l |grep -c ^ii.*pulse) 
+#?# if [ $NUM_PULSE_PKG -gt 3 ];then
+#?#         zenity --error --text "Achtung, wir haben <b>$NUM_PULSE_PKG packages</b> with <i>pulse</i> in the name...\nIf you like music, maybe you'd apt-get purge 'em"
+#?# 
+#?# fi

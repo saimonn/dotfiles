@@ -34,6 +34,7 @@
   branches = branch -a -vv
   oops=commit --amend --no-edit
   paf = push -f
+  quaranteneuftrois = push -f
 [push]
 	default = simple
 

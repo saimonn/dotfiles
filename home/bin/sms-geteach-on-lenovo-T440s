@@ -1,5 +1,8 @@
+#!/bin/bash
+echo 'if already turned on, you can try:'
+echo '  gammu geteachsms'
 echo "Step 1: switch On lenovo modem"
-sudo /usr/local/bin/lenovo-modem on
+sudo ~/bin/lenovo-modem on
 echo "Step 2: call $ gammu geteachsms"
 echo "Step 3: Pray"
 gammu geteachsms

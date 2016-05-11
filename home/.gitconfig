@@ -1,6 +1,7 @@
 [user]
 	name = Simon Séhier
 	email = simon.sehier@camptocamp.com
+	signingkey = 7DAAB536
 
 [merge]
 	tool = vimdiff
@@ -17,6 +18,7 @@
   s = status -sb
   l=ls-files
   ci = commit
+  commit = commit -S
   br = branch
   co = checkout
   cp = cherry-pick

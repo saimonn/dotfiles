@@ -12,5 +12,6 @@ do
 done
 
 echo "Calling 'xrandr $XRANDR_OPT'"
+logger "Calling 'xrandr $XRANDR_OPT'"
 xrandr $XRANDR_OPT
 

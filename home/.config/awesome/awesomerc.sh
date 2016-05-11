@@ -1,3 +1,11 @@
+#!/bin/bash
+
+runonce ()
+{
+  pgrep $1 || "$@" &
+}
+
+
 setxkbmap us altgr-intl
 
 CONNECTED_SCREENS="$(xrandr -q | awk '/\<connected\>/ {print $1}' )"
@@ -20,3 +28,11 @@ xrandr $XRANDR_OPT
 #?#         zenity --error --text "Achtung, wir haben <b>$NUM_PULSE_PKG packages</b> with <i>pulse</i> in the name...\nIf you like music, maybe you'd apt-get purge 'em"
 #?# 
 #?# fi
+
+runonce fdpowermon0
+runonce fdpowermon1
+runonce xfce4-clipman
+runonce icedove
+runonce iceweasel
+runonce x-terminal-emulator -e "irssi"
+runonce pidgin

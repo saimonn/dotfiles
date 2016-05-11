@@ -1,6 +1,14 @@
+#
 # and make bash completion work for "g"
+
 . /usr/share/bash-completion/completions/git
+
 __git_complete g __git_main
+
+runonce () {
+  pgrep $1 || "$@"
+}
+
 alias ssh-add='ssh-add -t 4h'
 alias l='ls'
 alias ll='ls -l'
@@ -44,10 +52,11 @@ alias search='recoll -t'
 alias gw="ip route list | awk '/^default.via/ {print \$3}'"
 
 
-if !(which thunderbird >/dev/null ) &&
-     (which icedove >/dev/null)
+if (which icedove >/dev/null)
 then 
   alias thunderbird=icedove
 fi
 
 alias pgwen='pwgen -s'
+
+export puppet=/opt/puppetlabs/puppet/bin/puppet

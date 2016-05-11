@@ -222,6 +222,6 @@ if [ -n "$PS1" ] && [ "$TERM" != "dumb" ] ;then
 
   export        PS1='${YELLOW}($?)|${CYAN}\w'
   export  PS1="$PS1"'${YELLOW}|${PURPLE}\u${GREY}@${GREEN}${_LP_HOSTNAME}'
-  export  PS1="$PS1"'${YELLOW}|$(_lp_git_branch_color)${WHITE}'
-  export  PS1="$PS1"'\n\$ '
+  export  PS1="$PS1"'${YELLOW}|${CYAN}$(__git_ps1)${YELLOW}|'
+  export  PS1="$PS1"'${WHITE}\n\$ '
 fi

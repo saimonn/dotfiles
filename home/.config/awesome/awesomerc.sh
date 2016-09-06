@@ -34,5 +34,8 @@ runonce fdpowermon1
 runonce xfce4-clipman
 runonce icedove
 runonce iceweasel
-runonce x-terminal-emulator -e "irssi"
+pgrep irssi || x-terminal-emulator -e screen -U -t IRC irssi
 runonce pidgin
+runonce pasystray -a
+
+

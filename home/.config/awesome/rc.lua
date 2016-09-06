@@ -13,7 +13,6 @@ local menubar = require("menubar")
 -- Load the widget.
 local APW = require("apw/widget")
 
-
 -- Load Debian menu entries
 require("debian.menu")
 
@@ -51,6 +50,13 @@ terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
 xlock_cmd = terminal .. " -e " .. "/home/ssehier/bin/xlock"
+
+-- Try to get volume shortcuts work with pulseaudio system-wide (no pacmd)
+local defaultSink = "alsa_output.pci-0000_00_1b.0.analog-stereo"
+volUp         = "pactl set-sink-volume " .. defaultSink .. " +3dB"
+volDown       = "pactl set-sink-volume " .. defaultSink .. " -3dB"
+volToggleMute = "pactl set-sink-mute   " .. defaultSink .. " toggle"
+
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -284,20 +290,22 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "p", function() menubar.show() end),
    
    -- Configure the hotkeys.
-   awful.key({ modkey, }, "x",           function () awful.util.spawn(xlock_cmd) end),
-   awful.key({ modkey, }, "Pause",       function () awful.util.spawn("mpc toggle") end),
-   awful.key({ modkey, }, "KP_Multiply", function () awful.util.spawn("mpc next") end),
-   awful.key({ modkey, }, "KP_Divide",   function () awful.util.spawn("mpc prev") end),
-   awful.key({ modkey, }, "Next",        function () awful.util.spawn("mpc next") end),
-   awful.key({ modkey, }, "Prior",       function () awful.util.spawn("mpc prev") end),
-   awful.key({ modkey, }, "KP_Enter",      APW.ToggleMute),
-   awful.key({ modkey, }, "KP_Add",        APW.Up),
-   awful.key({ modkey, }, "KP_Subtract",   APW.Down),
-   awful.key({ modkey, }, "=",             APW.Up),
-   awful.key({ modkey, }, "-",             APW.Down),
-   awful.key({ }, "XF86AudioRaiseVolume",  APW.Up),
-   awful.key({ }, "XF86AudioLowerVolume",  APW.Down),
-   awful.key({ }, "XF86AudioMute",         APW.ToggleMute)
+   awful.key({ modkey, }, "x",            function () awful.util.spawn(xlock_cmd) end),
+   awful.key({ modkey, }, "Pause",        function () awful.util.spawn("mpc toggle") end),
+   awful.key({ modkey, }, "Print",        function () awful.util.spawn("~/bin/mpc-status-osd") end),
+   awful.key( {},         "Print",        function () awful.util.spawn("scrot -s") end),
+   awful.key({ modkey, }, "KP_Multiply",  function () awful.util.spawn("mpc next") end),
+   awful.key({ modkey, }, "KP_Divide",    function () awful.util.spawn("mpc prev") end),
+   awful.key({ modkey, }, "Next",         function () awful.util.spawn("mpc next") end),
+   awful.key({ modkey, }, "Prior",        function () awful.util.spawn("mpc prev") end),
+   awful.key({ modkey, }, "KP_Enter",     function () awful.util.spawn("~/bin/mpc-status-osd") end),
+   awful.key({ modkey, }, "KP_Add",       function () awful.util.spawn(volUp)         end ),
+   awful.key({ modkey, }, "KP_Subtract",  function () awful.util.spawn(volDown)       end ),
+   awful.key({ modkey, }, "=",            function () awful.util.spawn(volUp)         end ),
+   awful.key({ modkey, }, "-",            function () awful.util.spawn(volDown)       end ),
+   awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn(volUp)         end ),
+   awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn(volDown)       end ),
+   awful.key({ }, "XF86AudioMute",        function () awful.util.spawn(volToggleMute) end )
 
 )
 

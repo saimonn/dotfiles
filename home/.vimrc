@@ -5,6 +5,8 @@ set hlsearch
 syntax on
 set number
 
+let g:airline#extensions#tabline#enabled = 1
+
 filetype plugin indent on
 au BufNewFile,BufRead *.pp  setlocal kp=pi
 

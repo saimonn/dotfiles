@@ -277,12 +277,12 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen.index]:run() end),
 
     --  --  awful.key({ modkey }, "x",
     --  --            function ()
     --  --                awful.prompt.run({ prompt = "Run Lua code: " },
-    --  --                mypromptbox[mouse.screen].widget,
+    --  --                mypromptbox[mouse.screen.index].widget,
     --  --                awful.util.eval, nil,
     --  --                awful.util.getdir("cache") .. "/history_eval")
     --  --            end),
@@ -290,8 +290,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "p", function() menubar.show() end),
    
    -- Configure the hotkeys.
+   awful.key({ }, "XF86HomePage",         function () awful.util.spawn("icedove http://sa.camptocamp.com/vuache/") end),
+   awful.key({ }, "XF86Mail",             function () awful.util.spawn("icedove --compose") end),
+   awful.key({ }, "XF86Sleep",            function () awful.util.spawn(xlock_cmd) end),
+   awful.key({ }, "XF86Calculator",       function () awful.util.spawn(terminal) end),
    awful.key({ modkey, }, "x",            function () awful.util.spawn(xlock_cmd) end),
    awful.key({ modkey, }, "Pause",        function () awful.util.spawn("mpc toggle") end),
+   awful.key({ }, "XF86AudioPlay",        function () awful.util.spawn("mpc toggle") end),
    awful.key({ modkey, }, "Print",        function () awful.util.spawn("~/bin/mpc-status-osd") end),
    awful.key( {},         "Print",        function () awful.util.spawn("scrot -s") end),
    awful.key({ modkey, }, "KP_Multiply",  function () awful.util.spawn("mpc next") end),
@@ -305,7 +310,9 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, }, "-",            function () awful.util.spawn(volDown)       end ),
    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn(volUp)         end ),
    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn(volDown)       end ),
-   awful.key({ }, "XF86AudioMute",        function () awful.util.spawn(volToggleMute) end )
+   awful.key({ }, "XF86AudioMute",        function () awful.util.spawn(volToggleMute) end ),
+   awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("~/bin/brightness--") end ),
+   awful.key({ }, "XF86MonBrightnessUp",   function () awful.util.spawn("~/bin/brightness++") end )
 
 )
 
@@ -337,7 +344,7 @@ for i = 1, 9 do
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
-                        local screen = mouse.screen
+                        local screen = mouse.screen.index
                         local tag = awful.tag.gettags(screen)[i]
                         if tag then
                            awful.tag.viewonly(tag)
@@ -346,7 +353,7 @@ for i = 1, 9 do
         -- Toggle tag.
         awful.key({ modkey, "Control" }, "#" .. i + 9,
                   function ()
-                      local screen = mouse.screen
+                      local screen = mouse.screen.index
                       local tag = awful.tag.gettags(screen)[i]
                       if tag then
                          awful.tag.viewtoggle(tag)

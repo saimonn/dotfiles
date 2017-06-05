@@ -3,7 +3,7 @@
 START_TIME=$(date '+%T')
 logger "$$: SIGLUNCH, or at least xlock called. Oh and rsyslog for grep"
 
-/usr/bin/i3lock --nofork --image /home/${USER}/Pictures/BOFH.png --color 404040  --tiling --dpms
+/usr/bin/i3lock -f --nofork --image /home/${USER}/Pictures/BOFH.png --color 404040  --tiling
 
 END_TIME=$(date '+%T')
 logger "$$: END OF SIGLUNCH, or at least xlock exited. Oh and rsyslog for grep"

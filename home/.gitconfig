@@ -26,6 +26,7 @@
   df = diff
   d = diff --word-diff=color
   sh = show --word-diff=color
+  showfuller = show --pretty=fuller
   dc = diff --cached
   fo = fetch origin
   fu = fetch upstream

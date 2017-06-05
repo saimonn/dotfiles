@@ -2,7 +2,7 @@
 
 runonce ()
 {
-  pgrep $1 || "$@" &
+  pgrep `basename $1` || "$@" &
 }
 
 
@@ -29,13 +29,15 @@ xrandr $XRANDR_OPT
 #?# 
 #?# fi
 
-runonce fdpowermon0
-runonce fdpowermon1
+runonce /home/ssehier/bin/fdpowermon0
+runonce /home/ssehier/bin/fdpowermon1
 runonce xfce4-clipman
-runonce icedove
-runonce iceweasel
-pgrep irssi || x-terminal-emulator -e screen -U -t IRC irssi
-runonce pidgin
+#runonce icedove
+#runonce iceweasel
+#runonce pidgin
+runonce nm-applet
 runonce pasystray -a
+# Let screen launch icedove and co:
+pgrep screen || x-terminal-emulator -e screen -U -c ~/.screenrc.awesome &
 
 

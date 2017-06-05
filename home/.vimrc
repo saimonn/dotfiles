@@ -5,7 +5,8 @@ set hlsearch
 syntax on
 set number
 
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
+let g:vim_json_syntax_conceal = 0
 
 filetype plugin indent on
 au BufNewFile,BufRead *.pp  setlocal kp=pi

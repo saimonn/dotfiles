@@ -1,3 +1,5 @@
+[ -f /etc/bash_completion.d/git-prompt ] && . /etc/bash_completion.d/git-prompt
+
 if [ -n "$PS1" ] && [ "$TERM" != "dumb" ] ;then
   # GIT #
   LP_ENABLE_GIT=1

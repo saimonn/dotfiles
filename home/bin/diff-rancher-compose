@@ -3,7 +3,7 @@
 changed_ressource=0
 while read -r LINE
 do
-  if grep -q '^~ \|^.....~ ' <<<"$LINE";then
+  if grep -q '^.*[[:space:]]\+.*~' <<<"$LINE";then
     changing_ressource=1;
   else
     changing_ressource=0;

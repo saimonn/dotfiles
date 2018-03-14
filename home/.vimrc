@@ -5,6 +5,10 @@ set hlsearch
 syntax on
 set number
 
+" https://bepo.fr/wiki/Vim
+set listchars=nbsp:¤,tab:>-,trail:¤,extends:>,precedes:<
+set list
+
 "let g:airline#extensions#tabline#enabled = 1
 let g:vim_json_syntax_conceal = 0
 

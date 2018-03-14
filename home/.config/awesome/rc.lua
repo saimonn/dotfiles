@@ -49,10 +49,11 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 terminal = "x-terminal-emulator"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
-xlock_cmd = terminal .. " -e " .. "/home/ssehier/bin/xlock"
+xlock_cmd = "/home/ssehier/bin/xlock"
 
 -- Try to get volume shortcuts work with pulseaudio system-wide (no pacmd)
-local defaultSink = "alsa_output.pci-0000_00_1b.0.analog-stereo"
+-- #t440s# local defaultSink = "alsa_output.pci-0000_00_1b.0.analog-stereo"
+local defaultSink = "alsa_output.pci-0000_00_1f.3.analog-stereo"
 volUp         = "pactl set-sink-volume " .. defaultSink .. " +3dB"
 volDown       = "pactl set-sink-volume " .. defaultSink .. " -3dB"
 volToggleMute = "pactl set-sink-mute   " .. defaultSink .. " toggle"
@@ -298,6 +299,7 @@ globalkeys = awful.util.table.join(
    awful.key({ }, "XF86Calculator",       function () awful.util.spawn(terminal) end),
    awful.key({ modkey, }, "x",            function () awful.util.spawn(xlock_cmd) end),
    awful.key({ modkey, }, "Pause",        function () awful.util.spawn("mpc toggle") end),
+   awful.key({ modkey, }, ".",            function () awful.util.spawn("mpc toggle") end),
    awful.key({ }, "XF86AudioPlay",        function () awful.util.spawn("mpc toggle") end),
    awful.key({ modkey, }, "Print",        function () awful.util.spawn("~/bin/mpc-status-osd") end),
    awful.key( {},         "Print",        function () awful.util.spawn("scrot -s") end),
@@ -305,6 +307,8 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, }, "KP_Divide",    function () awful.util.spawn("mpc prev") end),
    awful.key({ modkey, }, "Next",         function () awful.util.spawn("mpc next") end),
    awful.key({ modkey, }, "Prior",        function () awful.util.spawn("mpc prev") end),
+   awful.key({ }, "XF86AudioPrev",        function () awful.util.spawn("mpc prev") end),
+   awful.key({ }, "XF86AudioNext",        function () awful.util.spawn("mpc next") end),
    awful.key({ modkey, }, "KP_Enter",     function () awful.util.spawn("~/bin/mpc-status-osd") end),
    awful.key({ modkey, }, "KP_Add",       function () awful.util.spawn(volUp)         end ),
    awful.key({ modkey, }, "KP_Subtract",  function () awful.util.spawn(volDown)       end ),

@@ -1,3 +1,5 @@
+! Avoid screen error on remote ssh instances: "Cannot find terminfo entry for 'rxvt-unicode-256color'."
+URxvt*termName: rxvt
 ! beep  on activity
 URxvt.urgentOnBell:  true
 XTerm*bellIsUrgent:  true
@@ -65,3 +67,4 @@ URxvt.keysym.C-0: command: \033]710;xft:Monospace:regular:antialias=true:size=36
 *color15: #999999
 
 !Xcursor.theme: Vanilla-DMZ-AA
+!

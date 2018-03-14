@@ -15,3 +15,5 @@ echo "Calling 'xrandr $XRANDR_OPT'"
 logger "Calling 'xrandr $XRANDR_OPT'"
 xrandr $XRANDR_OPT
 
+echo "waiting 1 sec before restarting awesomeWM..."
+sleep 1 ; awesome-client <<<'awesome.restart()' && echo Done

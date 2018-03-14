@@ -42,14 +42,15 @@ alias ec2_public_hostname-find-with-mco='mco facts ec2_public_hostname -I'
 
 ## feignant mode on ## 
 alias g=git
+alias gr=grep
 alias l=ls
 alias j=jobs
 alias v=vim
+alias s=ssh
+alias tf=terraform
 
 alias search='recoll -t'
 
-# quickly get default gw:
-alias gw="ip route list | awk '/^default.via/ {print \$3}'"
 
 
 if (which icedove >/dev/null)
@@ -57,6 +58,9 @@ then
   alias thunderbird=icedove
 fi
 
-alias pgwen='pwgen -s'
 
 export puppet=/opt/puppetlabs/puppet/bin/puppet
+
+# help me to switch keyboard
+alias 'bépo-setxkbmap-us-altgr-intl'='setxkbmap us altgr-intl'
+alias 'qwer-setxkbmap-fr-bepo'='setxkbmap fr bepo'

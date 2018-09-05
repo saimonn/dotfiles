@@ -10,6 +10,11 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local hotkeys_popup = require("awful.hotkeys_popup").widget
+-- Enable hotkeys help widget for VIM and other apps
+-- when client with a matching name is opened:
+require("awful.hotkeys_popup.keys")
+
 -- Load the widget.
 local APW = require("apw/widget")
 
@@ -317,8 +322,10 @@ globalkeys = awful.util.table.join(
    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn(volUp)         end ),
    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn(volDown)       end ),
    awful.key({ }, "XF86AudioMute",        function () awful.util.spawn(volToggleMute) end ),
-   awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("~/bin/brightness--") end ),
-   awful.key({ }, "XF86MonBrightnessUp",   function () awful.util.spawn("~/bin/brightness++") end )
+   awful.key({ }, "XF86KbdBrightnessDown", function () awful.util.spawn("/home/ssehier/bin/brightness--") end ),
+   awful.key({ }, "XF86KbdBrightnessUp",   function () awful.util.spawn("/home/ssehier/bin/brightness++") end ),
+   awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("/home/ssehier/bin/brightness--") end ),
+   awful.key({ }, "XF86MonBrightnessUp",   function () awful.util.spawn("/home/ssehier/bin/brightness++") end )
 
 )
 
@@ -334,6 +341,14 @@ clientkeys = awful.util.table.join(
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
+        end),
+    awful.key({ modkey,           }, "F7",
+        function (c)
+            c.maximized_horizontal = not c.maximized_horizontal
+        end),
+    awful.key({ modkey,           }, "F8",
+        function (c)
+            c.maximized_vertical   = not c.maximized_vertical
         end),
     awful.key({ modkey,           }, "m",
         function (c)

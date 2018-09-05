@@ -1,10 +1,11 @@
 [user]
-	name = Simon Séhier
-	email = simon.sehier@camptocamp.com
-	signingkey = 7DAAB536
+  name = Simon Séhier
+  email = simon.sehier@camptocamp.com
+  #signingkey = 7DAAB536
+  signingkey = 75AA85F4B0B4900B8E84EEFF055347BF5133A918
 
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 
 [color]
   branch = auto
@@ -38,11 +39,14 @@
   oops=commit --amend --no-edit
   paf = push -f
   quaranteneuftrois = push -f
+[pull]
+  rebase = true
+
 [push]
-	default = simple
+  default = simple
 
 [pretty]
   mine="%C(auto,yellow)%ai %C(auto,cyan)%h %C(auto,green)%aN%C(auto,reset),%n  %s%n"
 
 [format]
-	pretty = mine
+  pretty = mine

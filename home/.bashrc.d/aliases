@@ -3,6 +3,8 @@
 
 . /usr/share/bash-completion/completions/git
 
+alias nautilus='nautilus --no-desktop' # non mais!
+
 __git_complete g __git_main
 
 runonce () {
@@ -15,8 +17,28 @@ alias ll='ls -l'
 alias la='ls -a'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias s=ssh
 alias fail='tail -F'
+
+alias pgwen='pwgen -s'
+alias tf=terraform
+
+# quickly get default gw:
+alias gw="ip route list | awk '/^default.via/ {print \$3}'"
+alias vpn-gw="ip ro list 10.27.0.0/16 dev tun0 |grep -o '10\.25\.[0-9\.]\+'"
+
+function route-via-vpn-host (){
+  sudo route add -host $1 gw $(vpn-gw)
+}
+function route-via-vpn-net (){
+  echo "route add -net $1 gw $(vpn-gw)" >&2
+  sudo route add -net $1 gw $(vpn-gw)
+}
+
+function vpn-routeall (){
+  route-via-vpn-net 0.0.0.0/1
+  route-via-vpn-net 128.0.0.0/1
+}
+
 
 function x (){
         ssh $@ -t screen -x
@@ -31,7 +53,9 @@ alias puppet-lint='puppet-lint --no-class_inherits_from_params_class-check'
 # String escape:
 alias stresc='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
-alias xtightvncviewer='xtightvncviewer -encodings "tight copyrect" -quality 1'
+#alias xtightvncviewer='xtightvncviewer -encodings "tight copyrect" -quality 1'
+alias xtigervncviewer='xtigervncviewer -QualityLevel 1 -PreferredEncoding Tight'
+alias xtightvncviewer=xtigervncviewer
 
 #alias fuck='sudo $(fc -ln -1)' # pip install fuck # much better
 alias fuck='$(thefuck $(fc -ln -1))'
@@ -51,16 +75,15 @@ alias tf=terraform
 
 alias search='recoll -t'
 
-
-
 if (which icedove >/dev/null)
-then 
+then
   alias thunderbird=icedove
 fi
-
 
 export puppet=/opt/puppetlabs/puppet/bin/puppet
 
 # help me to switch keyboard
 alias 'bépo-setxkbmap-us-altgr-intl'='setxkbmap us altgr-intl'
 alias 'qwer-setxkbmap-fr-bepo'='setxkbmap fr bepo'
+alias sshc2c='ssh -o proxyjump=c2c'
+alias c2c=sshc2c

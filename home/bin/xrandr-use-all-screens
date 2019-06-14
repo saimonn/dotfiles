@@ -1,19 +1,42 @@
 #!/bin/bash
 
-CONNECTED_SCREENS="$(xrandr -q | awk '/\<connected\>/ {print $1}' )"
+# We'll loop only once if LOOP=-1 (without --loop argument)
+LOOP=-1
+case x"$1" in 
+  xloop|x-loop|x--loop|x-l)
+    LOOP=1
+    ;;
+esac
 
-for S in $CONNECTED_SCREENS
-do
-   XRANDR_OPT="$XRANDR_OPT --output $S --auto"
-   if [ -n "$LAST_SCREEN" ];then
-     XRANDR_OPT="$XRANDR_OPT --right-of $LAST_SCREEN "
-   fi
-   LAST_SCREEN="$S"
+while [ $LOOP -ne 0 ]; do
+  LOOP=$(($LOOP+1))
+  XRANDR_OPT=""
+  LAST_SCREEN=""
+
+  # Build options based on detected monitors:
+  CONNECTED_SCREENS="$(xrandr -q | awk '/\<connected\>/ {print $1}' )"
+  for S in $CONNECTED_SCREENS
+  do
+     XRANDR_OPT="$XRANDR_OPT --output $S --auto"
+     if [ -n "$LAST_SCREEN" ];then
+       XRANDR_OPT="$XRANDR_OPT --right-of $LAST_SCREEN "
+     fi
+     LAST_SCREEN="$S"
+  done
+
+  # Apply xrandx if something changed:
+  if [ x"$LAST_OPTS" == x"$XRANDR_OPT" ] ;then
+    echo "looping $0 (loop=$LOOP)"
+  else
+    xrandr-auto
+    echo "Calling 'xrandr $XRANDR_OPT'"
+    logger "Calling 'xrandr $XRANDR_OPT'"
+    xrandr $XRANDR_OPT
+    #echo "waiting 1 sec before restarting awesomeWM..."
+    #sleep 1 ; awesome-client <<<'awesome.restart()' && echo Done
+  fi
+
+  LAST_OPTS="$XRANDR_OPT"
+  sleep 1
+
 done
-
-echo "Calling 'xrandr $XRANDR_OPT'"
-logger "Calling 'xrandr $XRANDR_OPT'"
-xrandr $XRANDR_OPT
-
-echo "waiting 1 sec before restarting awesomeWM..."
-sleep 1 ; awesome-client <<<'awesome.restart()' && echo Done

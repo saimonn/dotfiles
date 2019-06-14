@@ -82,8 +82,17 @@ fi
 
 export puppet=/opt/puppetlabs/puppet/bin/puppet
 
-# help me to switch keyboard
+# help me to switch keyboard with tab-completion
 alias 'bépo-setxkbmap-us-altgr-intl'='setxkbmap us altgr-intl'
 alias 'qwer-setxkbmap-fr-bepo'='setxkbmap fr bepo'
 alias sshc2c='ssh -o proxyjump=c2c'
 alias c2c=sshc2c
+
+alias cal='ncal -wM'
+alias apt='sudo apt'
+
+alias nemo='nemo --no-desktop --no-default-window'
+
+alias alsamixer='alsamixer -c0'
+
+alias poweroff='logger SIGLUNCH poweroff called && sudo poweroff'

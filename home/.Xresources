@@ -4,7 +4,8 @@ URxvt*termName: rxvt
 URxvt.urgentOnBell:  true
 XTerm*bellIsUrgent:  true
 
-URxvt*background:	#000000
+!URxvt*background:	#000000
+URxvt*background:	[95]#333333
 URxvt*foreground:	#EEEEEE
 
 !!URxvt*scrollWithBuffer: true
@@ -68,3 +69,8 @@ URxvt.keysym.C-0: command: \033]710;xft:Monospace:regular:antialias=true:size=36
 
 !Xcursor.theme: Vanilla-DMZ-AA
 !
+!
+!https://github.com/jwilm/alacritty/issues/1982
+URxvt.focus-background.focused: [95]#0000000000
+URxvt.focus-background.not-focused: [85]#444444
+

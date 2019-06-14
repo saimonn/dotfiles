@@ -1,18 +1,31 @@
 #!/bin/bash
 
 START_TIME=$(date '+%T')
-logger "$$: SIGLUNCH, or at least xlock called. Oh and rsyslog for grep"
+logger "[ $$   >>> ] SIGLUNCH, SIGN-IN ? xlock called. tag:'Terminating' for grep"
+
+## mplayer -ontop -shuffle -nosound -really-quiet \
+##   -nolirc -nostop-xscreensaver -fs -loop 0 \
+##   $HOME/Videos/* &
+## 
+## jobs -l
 
 #/usr/bin/i3lock-fancy -n --pixelate
 /usr/bin/i3lock-fancy
 #/usr/bin/i3lock -f --nofork --image /home/${USER}/Pictures/BOFH.png --color 404040  --tiling
+#/usr/bin/i3lock -f --nofork
+#slock
+
+ps -ef |grep i3lock |tee /tmp/pwer
 
 while pidof -x /usr/bin/i3lock-fancy >/dev/null ;do sleep 1; done
 
 END_TIME=$(date '+%T')
-logger "$$: END OF SIGLUNCH, or at least xlock exited. Oh and rsyslog for grep"
+logger "$$: <<< END OF SIGLUNCH, sign-out ? tag:'Terminating' for grep"
+
+## kill $(jobs -p) ## kill theses mplayers
 
 if which zenity >/dev/null
 then
   zenity  --info --text "Lock time: ${START_TIME}\nunlocked at: ${END_TIME}\n" --title "locked ${START_TIME} 'til ${END_TIME}"
 fi
+

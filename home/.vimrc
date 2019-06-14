@@ -1,6 +1,7 @@
 set et si
-set modeline
+set sw=2
 set ts=2
+set modeline
 set hlsearch
 syntax on
 set number
@@ -26,7 +27,6 @@ set cursorline cursorcolumn
 " It is useful to toggle highlighting on and off by pressing one key
 nnoremap H :set cursorline! cursorcolumn!<CR>
 
-
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
@@ -38,3 +38,4 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+

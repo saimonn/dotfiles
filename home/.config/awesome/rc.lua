@@ -15,6 +15,10 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+-- from: /usr/share/doc/awesome-extra/obvious/README.basic_mpd
+-- local obvious = require("obvious")
+-- require("obvious.basic_mpd")
+
 -- Load the widget.
 local APW = require("apw/widget")
 
@@ -246,6 +250,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
+        -- obvious.basic_mpd(),
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
@@ -350,7 +355,7 @@ globalkeys = gears.table.join(
     awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
               {description = "run prompt", group = "launcher"}),
 
-    awful.key({ modkey }, "x",
+    awful.key({ modkey , "Shift" }, "x",
               function ()
                   awful.prompt.run {
                     prompt       = "Run Lua code: ",
@@ -372,9 +377,12 @@ globalkeys = gears.table.join(
    awful.key({ modkey, }, "x",            function () awful.util.spawn(xlock_cmd) end),
    awful.key({ modkey, }, "Pause",        function () awful.util.spawn("mpc toggle") end),
    awful.key({ modkey, }, ".",            function () awful.util.spawn("mpc toggle") end),
+   awful.key({ modkey, }, "\\",           function () awful.util.spawn("mpc toggle") end),
    awful.key({ }, "XF86AudioPlay",        function () awful.util.spawn("mpc toggle") end),
    awful.key({ modkey, }, "Print",        function () awful.util.spawn("~/bin/mpc-status-osd") end),
    awful.key( {},         "Print",        function () awful.util.spawn("scrot -s") end),
+   awful.key({ modkey, }, "]",            function () awful.util.spawn("mpc next") end),
+   awful.key({ modkey, }, "[",            function () awful.util.spawn("mpc prev") end),
    awful.key({ modkey, }, "KP_Multiply",  function () awful.util.spawn("mpc next") end),
    awful.key({ modkey, }, "KP_Divide",    function () awful.util.spawn("mpc prev") end),
    awful.key({ modkey, }, "Next",         function () awful.util.spawn("mpc next") end),

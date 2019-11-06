@@ -1,0 +1,7 @@
+source <(gopass completion bash)
+source <(project completion_bash)
+source <(otp completion_bash)
+
+. ~/dev/bash-it/completion/available/terraform.completion.bash
+complete -F _terraform tf
+

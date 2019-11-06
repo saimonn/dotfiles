@@ -64,9 +64,9 @@ xlock_cmd = "/home/ssehier/bin/xlock"
 -- Try to get volume shortcuts work with pulseaudio system-wide (no pacmd)
 -- #t440s# local defaultSink = "alsa_output.pci-0000_00_1b.0.analog-stereo"
 local defaultSink = "alsa_output.pci-0000_00_1f.3.analog-stereo"
-volUp         = "pactl set-sink-volume " .. defaultSink .. " +3dB"
-volDown       = "pactl set-sink-volume " .. defaultSink .. " -3dB"
-volToggleMute = "pactl set-sink-mute   " .. defaultSink .. " toggle"
+volUp         = "pactl set-sink-volume @DEFAULT_SINK@ +3dB"
+volDown       = "pactl set-sink-volume @DEFAULT_SINK@ -3dB"
+volToggleMute = "pactl set-sink-mute   @DEFAULT_SINK@ toggle"
 
 
 -- Default modkey.

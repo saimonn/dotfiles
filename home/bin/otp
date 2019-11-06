@@ -1,0 +1,55 @@
+#!/bin/bash
+
+### bin/otp
+#
+# Uses opt keys in $OATH_FILE with format:
+#
+# account_name:              USUALY_64_CHARACTER_LONG_HEXADECIMAL_OATH_TOKEN
+# another_account_name:      USUALY_64_CHARACTER_LONG_OTHER_HEXADECIMAL_OATH_TOKEN
+# ...: ...
+# add this to your bash startup file to enable auto-completion:
+#
+#   source <(otp completion_bash)
+#
+OATH_FILE="$HOME/.otp/oath"
+
+if [ x"$1" == x"completion_bash" ] ;then
+cat <<EOF
+complete -F _otp otp
+
+_otp()
+{
+	COMPREPLY=()
+	cur=\${COMP_WORDS[COMP_CWORD]}
+	prefix="${PROJECT_BASEDIR}"
+	prefix="\${prefix%/}/"
+	autoexpand=\${1:-0}
+	local IFS=\$'\\n'
+	WORDS="\$( grep -v '^[[:space:]]*\(#\|\$\)' $OATH_FILE | cut -d: -f1)"
+
+	COMPREPLY=( \$( compgen -W "\${WORDS}" -- \$cur ) )
+
+	return 0
+}
+EOF
+exit 0
+fi
+
+if ! command -v oathtool >/dev/null ;then
+	echo "oathtool command not found. you may want to install it first ?"
+	exit 1
+fi
+
+
+if [ $# != 1 ]; then
+  echo 'Need account name';
+  echo "Found existing accounts in ${OATH_FILE}:"
+  grep -v '^[[:space:]]*\(#\|$\)' $OATH_FILE | cut -d: -f1 | sed 's/^/ - /'
+else
+  if [ $(grep -c -e "^${1}:" $OATH_FILE) -eq 1 ] ;then
+		oathtool --totp -b $(grep -e "^${1}:" $OATH_FILE | cut -d ':' -f 2) 
+	else
+		echo 'Not found or multiple accounts with same name! listing matching names:'
+    grep -v '^[[:space:]]*\(#\|$\)' $OATH_FILE | cut -d: -f1 | sed 's/^/ - /' | grep -i ${1}
+	fi
+fi

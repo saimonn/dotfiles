@@ -66,6 +66,7 @@ alias ec2_public_hostname-find-with-mco='mco facts ec2_public_hostname -I'
 
 ## feignant mode on ## 
 alias g=git
+alias gut='git commit'
 alias gr=grep
 alias l=ls
 alias j=jobs

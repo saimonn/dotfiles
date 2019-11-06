@@ -1,4 +1,4 @@
-set et si
+set si
 set sw=2
 set ts=2
 set modeline
@@ -7,8 +7,8 @@ syntax on
 set number
 
 " https://bepo.fr/wiki/Vim
-set listchars=nbsp:¤,tab:>-,trail:¤,extends:>,precedes:<
-set list
+"set listchars=nbsp:¤,tab:>-,trail:¤,extends:>,precedes:<
+"set list
 
 "let g:airline#extensions#tabline#enabled = 1
 let g:vim_json_syntax_conceal = 0
@@ -20,7 +20,7 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 call pathogen#helptags()
 
-set cursorline cursorcolumn
+"set cursorline cursorcolumn
 :hi CursorLine   cterm=NONE ctermbg=DarkBlue ctermfg=white guibg=darkred guifg=white
 :hi CursorColumn cterm=NONE ctermbg=DarkBlue ctermfg=white guibg=darkred guifg=white
 

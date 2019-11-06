@@ -1,0 +1,43 @@
+#!/bin/bash
+
+PROJECT_BASEDIR=~/projects/
+
+if [ x"$1" == x"completion_bash" ] ;then
+cat<<EOF
+complete -F _project project
+
+_project()
+{
+	COMPREPLY=()
+	cur=\${COMP_WORDS[COMP_CWORD]}
+	prefix="${PROJECT_BASEDIR}"
+	prefix="\${prefix%/}/"
+	autoexpand=\${1:-0}
+	local IFS=\$'\n'
+	local items=( \$(cd \$prefix && compgen -d -- \$cur ))
+
+	for item in \${items[@]}; do
+		COMPREPLY+=("\${item#\$prefix}")
+	done
+	return 0
+}
+EOF
+
+	exit 0
+fi
+
+list-projects () {
+  ls -d "${PROJECT_BASEDIR}/*/"
+}
+
+if [ -n "$1" ] ;then
+	if [ -d "${PROJECT_BASEDIR}/$1/" ] ;then
+    cd "${PROJECT_BASEDIR}/$1/"
+    exec summon bash
+  	exit $?
+  else
+  	list-projects
+  fi
+else
+  	list-projects
+fi

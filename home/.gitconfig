@@ -3,6 +3,7 @@
   email = simon.sehier@camptocamp.com
   #signingkey = 7DAAB536
   signingkey = 75AA85F4B0B4900B8E84EEFF055347BF5133A918
+	signinkey = 055347BF5133A918
 
 [merge]
   tool = vimdiff
@@ -50,3 +51,5 @@
 
 [format]
   pretty = mine
+[commit]
+	gpgsign = true

@@ -1,0 +1,4 @@
+if [ $(date +%u) -eq 5 ] || [ -r /tmp/lol ];then
+  alias cat=lolcat
+  fortune|cowsay|lolcat
+fi

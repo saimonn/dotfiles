@@ -1,5 +1,10 @@
 #!/bin/bash
 
+## put this line somewhere in you .bashrc files to get completion:
+##
+##   source <(project completion_bash)
+##
+
 PROJECT_BASEDIR=~/projects/
 
 if [ x"$1" == x"completion_bash" ] ;then
